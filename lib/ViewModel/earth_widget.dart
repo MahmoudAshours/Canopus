@@ -33,21 +33,16 @@ class _MyHomePageState extends State<RotatingEarth>
     _scene = scene;
     _scene.camera.position.z = 16;
 
-    // model from https://free3d.com/3d-model/planet-earth-99065.html
-    // _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0), backfaceCulling: true, fileName: 'assets/earth/earth.obj');
-
     // create by code
     _earth = Object(name: 'earth', scale: Vector3(10.0, 10.0, 10.0));
     generateSphereObject(
         _earth!, 'surface', 0.485, true, 'assets/images/earth/4096_earth.jpg');
     generateSphereObject(
         _earth!, 'clouds', 0.5, true, 'assets/images/earth/4096_clouds.png');
-    _scene.world.add(_earth!);
     generateSphereObject(_earth!, 'night', 0.6, true,
         'assets/images/earth/4096_night_lights.jpg');
     _scene.world.add(_earth!);
 
-    // texture from https://www.solarsystemscope.com/textures/
     _stars = Object(name: 'stars', scale: Vector3(2000.0, 2000.0, 2000.0));
     generateSphereObject(
         _stars, 'surface', 0.5, false, 'assets/images/stars/2k_stars.jpeg');
