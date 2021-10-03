@@ -8,4 +8,5 @@ class MapsProvider extends ChangeNotifier {
     _latLng = newLatLng;
     notifyListeners();
   }
+  
 }
