@@ -5,10 +5,10 @@ class SolarPanel3D extends StatefulWidget {
   const SolarPanel3D({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SolarPanelState createState() => _SolarPanelState();
 }
 
-class _MyHomePageState extends State<SolarPanel3D>
+class _SolarPanelState extends State<SolarPanel3D>
     with SingleTickerProviderStateMixin {
   late Scene _scene;
   Object? _panel;
@@ -19,6 +19,7 @@ class _MyHomePageState extends State<SolarPanel3D>
     _scene.camera.position.z = 2;
     _panel = Object(
         backfaceCulling: false,
+        mesh: Mesh(texturePath: 'assets/images/solar_panel/panel.jpg'),
         fileName: 'assets/images/solar_panel/objSolar.obj');
     _scene.world.add(_panel!);
   }
