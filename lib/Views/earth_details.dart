@@ -1,11 +1,18 @@
 import 'dart:math';
 
+import 'package:canopus/Provider/arguments_provider.dart';
+import 'package:canopus/Provider/date_provider.dart';
+import 'package:canopus/Provider/maps_provider.dart';
 import 'package:canopus/Views/date_picker.dart';
+import 'package:canopus/Views/fetching_screen.dart';
 import 'package:canopus/Views/maps_screen.dart';
 import 'package:canopus/Views/paramaters_screen.dart';
+import 'package:canopus/Views/solar_irradiance.dart';
 import 'package:canopus/Views/solar_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:parallax_rain/parallax_rain.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as rv;
 
 class EarthDetail extends StatefulWidget {
@@ -39,10 +46,9 @@ class _EarthDetailState extends State<EarthDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final _argumentsProvider = Provider.of<ArgumentsProvider>(context);
+    final _dateProvider = Provider.of<DateProvider>(context);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => SolarPanelScreen()))),
       backgroundColor: const Color(0xff100414),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -93,7 +99,7 @@ class _EarthDetailState extends State<EarthDetail> {
             ),
             Center(
               child: SizedBox(
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height / 2,
                 width: MediaQuery.of(context).size.width,
                 child: GridView.count(
                   crossAxisCount: 2,
@@ -102,8 +108,11 @@ class _EarthDetailState extends State<EarthDetail> {
                   mainAxisSpacing: 50,
                   children: [
                     GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const MapsScreen())),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const MapsScreen(),
+                        ),
+                      ),
                       child: const Card(
                         shape: StadiumBorder(),
                         color: Color(0xff2C303B),
@@ -112,9 +121,9 @@ class _EarthDetailState extends State<EarthDetail> {
                             child: Text(
                               'Location',
                               style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 26,
-                                  fontFamily: 'age'),
+                                color: Colors.blue,
+                                fontSize: 26,
+                              ),
                             ),
                           ),
                         ),
@@ -130,7 +139,10 @@ class _EarthDetailState extends State<EarthDetail> {
                           title: Center(
                             child: Text(
                               'Date',
-                              style: TextStyle(color: Colors.orange),
+                              style: TextStyle(
+                                color: Colors.orange,
+                                fontSize: 26,
+                              ),
                             ),
                           ),
                         ),
@@ -146,12 +158,74 @@ class _EarthDetailState extends State<EarthDetail> {
                           title: Center(
                             child: Text(
                               'Parameters',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 26,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => SolarPanelScreen())),
+                      child: const Card(
+                        shape: StadiumBorder(),
+                        color: Color(0xff2C303B),
+                        child: ListTile(
+                          title: Center(
+                            child: Text(
+                              'Solar panels',
+                              style:
+                                  TextStyle(color: Colors.green, fontSize: 26),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const SolarIrradianceScreen())),
+                      child: const Card(
+                        shape: StadiumBorder(),
+                        color: Color(0xff2C303B),
+                        child: ListTile(
+                          title: Center(
+                            child: Text(
+                              'Solar energy',
+                              style: TextStyle(
+                                color: Colors.yellow,
+                                fontSize: 23,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    _argumentsProvider.getArguments.isNotEmpty &&
+                            _dateProvider.getStartDate.isNotEmpty
+                        ? GestureDetector(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => const FetchingScreen())),
+                            child: const Card(
+                              shape: StadiumBorder(),
+                              color: Colors.red,
+                              child: ListTile(
+                                title: Center(
+                                  child: Text(
+                                    'Calculate!',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox()
                   ],
                 ),
               ),
