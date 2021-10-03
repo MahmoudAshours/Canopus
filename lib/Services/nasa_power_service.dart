@@ -13,4 +13,13 @@ class NasaPowerService extends BasePowerRequest {
     final _response = await http.get(Uri.parse(_url));
     return json.decode(_response.body);
   }
+
+  @override
+  Future fetchClimatologySolarIrradiance(
+      String startYear, String endYear, LatLng latLng) async {
+    final _url =
+        "https://power.larc.nasa.gov/api/temporal/climatology/point?start=$startYear&end=$endYear&latitude=${latLng.latitude}&longitude=${latLng.longitude}&community=re&parameters=SI_EF_TILTED_SURFACE&header=true";
+    final _response = await http.get(Uri.parse(_url));
+    return json.decode(_response.body);
+  }
 }
