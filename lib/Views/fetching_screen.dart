@@ -1,13 +1,20 @@
-import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:canopus/Services/nasa_power_service.dart';
 import 'package:canopus/Views/computation_panel.dart';
+import 'package:canopus/Views/irradiance_computation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:parallax_rain/parallax_rain.dart';
+import 'package:canopus/Provider/arguments_provider.dart';
+import 'package:canopus/Provider/date_provider.dart';
+import 'package:canopus/Provider/maps_provider.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as rv;
 
 class FetchingScreen extends StatefulWidget {
-  const FetchingScreen({Key? key}) : super(key: key);
+  final bool isSolarIrradiance;
+  const FetchingScreen({Key? key, this.isSolarIrradiance = false})
+      : super(key: key);
 
   @override
   State<FetchingScreen> createState() => _FetchingScreenState();
@@ -15,11 +22,36 @@ class FetchingScreen extends StatefulWidget {
 
 class _FetchingScreenState extends State<FetchingScreen> {
   @override
-  void initState() {
-    _fetchingData().then((value) => Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => ComputationPanel(value: value)),
-        ));
-    super.initState();
+  void didChangeDependencies() {
+    final _argumentsProvider = Provider.of<ArgumentsProvider>(context);
+    final _dateProvider = Provider.of<DateProvider>(context);
+    final _mapsProvider = Provider.of<MapsProvider>(context);
+
+    widget.isSolarIrradiance
+        ? NasaPowerService()
+            .fetchClimatologySolarIrradiance(
+                _dateProvider.getStartDate.replaceAll('/', ''),
+                _dateProvider.getEndDate.replaceAll('/', ''),
+                _mapsProvider.getLatLng)
+            .then(
+              (value) => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                    builder: (_) => SolarIrradianceComputation(value: value)),
+              ),
+            )
+        : NasaPowerService()
+            .fetchNasaPowerData(
+                _argumentsProvider.getArguments.toList().join(','),
+                _dateProvider.getStartDate.replaceAll('/', ''),
+                _dateProvider.getEndDate.replaceAll('/', ''),
+                _mapsProvider.getLatLng)
+            .then(
+              (value) => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                    builder: (_) => ComputationPanel(value: value)),
+              ),
+            );
+    super.didChangeDependencies();
   }
 
   @override
@@ -75,12 +107,5 @@ class _FetchingScreenState extends State<FetchingScreen> {
         ),
       ),
     );
-  }
-
-  Future _fetchingData() async {
-    var resp = await http.get(Uri.parse(
-        'https://power.larc.nasa.gov/api/temporal/daily/point?start=20201220&end=20210219&latitude=30&longitude=30&community=re&parameters=RH2M%2CT2M_MAX%2CPRECTOTCORR%2CWS10M_MAX&header=true&time-standard=lst'));
-
-    return json.decode(resp.body);
   }
 }
