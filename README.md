@@ -6,6 +6,19 @@
 
 You can download the application for android from [here](https://drive.google.com/file/d/16pNjJN4pSKr_QmXNaUW8vQlz2_j4eKJw/view?usp=sharing)
 
+# Screenshots
+![simulator_screenshot_BF220BEE-A79C-473F-B876-C7B844A1EDFE](https://user-images.githubusercontent.com/50237142/135736448-ef96d467-cc7d-48ac-a357-0047d7619cfd.png)
+![simulator_screenshot_5F27F573-6EEB-476F-828B-F6494F66A433](https://user-images.githubusercontent.com/50237142/135736450-53bfae44-0fce-4042-b91a-9869687ec46e.png)
+![simulator_screenshot_1F2CBC1A-CE90-4BBC-9A13-E1A9674A6289](https://user-images.githubusercontent.com/50237142/135736455-287705cf-241f-4f95-a62f-6f2744179bd8.png)
+![simulator_screenshot_3CC7ADAE-C66E-4C6C-85DF-2548981A27CB](https://user-images.githubusercontent.com/50237142/135736459-1ef4cdc3-62c9-4158-a4f3-a39038a99230.png)
+![simulator_screenshot_B754E7AE-DE92-4837-A070-ADB5806EFFA2](https://user-images.githubusercontent.com/50237142/135736461-28b9a658-2d96-4fb5-b614-06290ab379c4.png)
+![simulator_screenshot_75140535-424A-4C8C-9001-6AB9D284C709](https://user-images.githubusercontent.com/50237142/135736467-d450aa81-c8f6-47a8-bee2-e53e73ac2623.png)
+![simulator_screenshot_ACA984BA-51C9-4367-B8F9-6137926CF4A3](https://user-images.githubusercontent.com/50237142/135736481-b49be21b-cfa2-4731-92c3-02760523a944.png)
+![simulator_screenshot_C3A85E29-634E-4194-8B42-491F46C2CB5E](https://user-images.githubusercontent.com/50237142/135736484-e976bd33-3267-402e-a19b-6d4709689b3a.png)
+![simulator_screenshot_C7CEB7B9-4869-43E4-AE36-8089BADDBE7D](https://user-images.githubusercontent.com/50237142/135736487-a75bfb66-6324-4755-8d7f-1146eaeb939c.png)
+![simulator_screenshot_F4F9E084-2D5D-4665-A1F3-A474FCA727DD](https://user-images.githubusercontent.com/50237142/135736488-f8f6065f-c1c7-492d-8e83-2b957db98a38.png)
+
+
 ## Explain your solution/idea in 300 words
 Solar energy is more widespread in some countries than others, and it is the fastest growing and most affordable source of new electricity in the United States according to the U.S. Department of Energy. NASA produces a variety of surface solar and meteorological data parameters that are useful to commercial renewable energy and sustainable building ventures, but this information is not easily accessible to the typical homeowner.
 
