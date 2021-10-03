@@ -1,5 +1,7 @@
+import 'package:canopus/Provider/date_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:rive/rive.dart' as rv;
 
@@ -11,25 +13,20 @@ class CanopusDatePicker extends StatefulWidget {
 }
 
 class CanopusDatePickerState extends State<CanopusDatePicker> {
-  String _range = '';
-
+  late DateProvider _dateProvider;
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    setState(
-      () {
-        if (args.value is PickerDateRange) {
-          _range =
-              DateFormat('dd/MM/yyyy').format(args.value.startDate).toString() +
-                  ' - ' +
-                  DateFormat('dd/MM/yyyy')
-                      .format(args.value.endDate ?? args.value.startDate)
-                      .toString();
-        }
-      },
-    );
+    if (args.value is PickerDateRange) {
+      _dateProvider.startDate =
+          DateFormat('yyyy/MM/dd').format(args.value.startDate).toString();
+      _dateProvider.endDate = DateFormat('yyyy/MM/dd')
+          .format(args.value.endDate ?? args.value.startDate)
+          .toString();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _dateProvider = Provider.of<DateProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff100414),
@@ -40,24 +37,21 @@ class CanopusDatePickerState extends State<CanopusDatePicker> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SafeArea(
-            child: GestureDetector(
-              onTap: () {
-                // final rand = Random().nextInt(_spaceshipAnimations.length);
-                // _controllers[rand].isActive = true;
-              },
-              child: const SizedBox(
-                width: 400,
-                height: 200,
-                child: rv.RiveAnimation.asset(
-                  'assets/images/mars.riv',
-                  // controllers: _controllers,
-                ),
+          const SafeArea(
+            child: SizedBox(
+              width: 400,
+              height: 200,
+              child: rv.RiveAnimation.asset(
+                'assets/images/mars.riv',
+                // controllers: _controllers,
               ),
             ),
           ),
           Text(
-            'Selected range: \n ' + _range,
+            'Selected range: \n ' +
+                _dateProvider.getStartDate +
+                '- ' +
+                _dateProvider.getEndDate,
             style: const TextStyle(color: Colors.orange, fontSize: 26),
           ),
           const Divider(
