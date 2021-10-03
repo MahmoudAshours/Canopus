@@ -13,10 +13,9 @@ class IntroPage extends StatelessWidget {
         IntroViewsConstants().page,
         onTapDoneButton: () => Navigator.of(context)
             .push(MaterialPageRoute(builder: (_) => const HomeScreen())),
-        showSkipButton: true,
-        skipText: const Text('Skip', style: TextStyle(color: Colors.black)),
+        showSkipButton: false,
         pageButtonTextStyles: const TextStyle(
-          color: Colors.black,
+          color: Colors.white,
           fontSize: 18.0,
         ),
       ),
