@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var rand = Random().nextInt(SunQuotes.famousQuotes.length);
-    return Scaffold( 
+    return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
