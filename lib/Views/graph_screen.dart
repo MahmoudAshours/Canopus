@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GraphScreen extends StatefulWidget {
-  final Map<String, num>? value;
+  final Map<String, dynamic>? value;
   final String? name;
 
   const GraphScreen({Key? key, required this.value, this.name})
@@ -18,7 +18,7 @@ class GraphScreen extends StatefulWidget {
 class _GraphScreenState extends State<GraphScreen> {
   int _currentIndex = 0;
 
-  late List<ChartSeries<String, String>> _graphTypes;
+  late List<ChartSeries<String, dynamic>> _graphTypes;
   @override
   void initState() {
     _graphTypes = [
@@ -87,14 +87,14 @@ class _GraphScreenState extends State<GraphScreen> {
             text: '${widget.name} graph',
             textStyle: const TextStyle(color: Colors.red)),
         tooltipBehavior: TooltipBehavior(enable: true, color: Colors.red),
-        series: <ChartSeries<String, String>>[_graphTypes[_currentIndex]],
+        series: <ChartSeries<String, dynamic>>[_graphTypes[_currentIndex]],
       ),
     );
   }
 }
 
 class GraphTypes {
-  final Map<String, num> value;
+  final Map<String, dynamic> value;
   final String name;
   GraphTypes(this.value, this.name);
   ChartSeries<String, String> fastLine() {
