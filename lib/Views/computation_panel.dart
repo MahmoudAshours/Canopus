@@ -16,23 +16,39 @@ class ComputationPanel extends StatefulWidget {
 
 class _ComputationPanelState extends State<ComputationPanel> {
   var _currentIndex = 0;
-  late List<Widget> _screens;
+  final List<Widget> _screens = [];
+  final List<BottomNavigationBarItem> _bottomNavBar = [];
   @override
   void initState() {
-    _screens = [
-      TempratureScreen(value: widget.value),
-      HumidityScreen(value: widget.value),
-      WindScreen(value: widget.value)
-    ];
+    try {
+      if (widget.value['properties']['parameter']['T2M_MAX'] != null) {
+        _screens.add(TempratureScreen(value: widget.value));
+        _bottomNavBar.add(const BottomNavigationBarItem(
+            icon:
+                FaIcon(FontAwesomeIcons.temperatureHigh, color: Colors.orange),
+            label: 'Temprature'));
+      }
+      if (widget.value['properties']['parameter']['RH2M'] != null) {
+        _screens.add(HumidityScreen(value: widget.value));
+        _bottomNavBar.add(const BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.hSquare, color: Colors.orange),
+            label: 'Humidity'));
+      }
+      if (widget.value['properties']['parameter']['WS10M_MAX'] != null) {
+        _screens.add(WindScreen(value: widget.value));
+        _bottomNavBar.add(const BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.wind, color: Colors.orange),
+            label: 'Wind'));
+      }
+      // ignore: empty_catches
+    } catch (e) {}
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xff100414),
-        ),
+        appBar: AppBar(backgroundColor: const Color(0xff100414)),
         bottomNavigationBar: SnakeNavigationBar.color(
           behaviour: SnakeBarBehaviour.floating,
           snakeShape: SnakeShape.indicator,
@@ -42,18 +58,7 @@ class _ComputationPanelState extends State<ComputationPanel> {
           currentIndex: _currentIndex,
           backgroundColor: const Color(0xff100414),
           onTap: (index) => setState(() => _currentIndex = index),
-          items: const [
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.temperatureHigh,
-                    color: Colors.orange),
-                label: 'Temprature'),
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.hSquare, color: Colors.orange),
-                label: 'Humidity'),
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.wind, color: Colors.orange),
-                label: 'Wind'),
-          ],
+          items: _bottomNavBar,
         ),
         backgroundColor: const Color(0xff100414),
         body: _screens[_currentIndex]);
