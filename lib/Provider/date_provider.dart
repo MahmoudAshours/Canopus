@@ -4,8 +4,8 @@ class DateProvider extends ChangeNotifier {
   String _startDate = "";
   String _endDate = "";
 
-  String get getStartDate => _startDate.replaceAll('/', '');
-  String get getEndDate => _endDate.replaceAll('/', '');
+  String get getStartDate => _startDate;
+  String get getEndDate => _endDate;
 
   set startDate(String startDate) {
     _startDate = startDate;
