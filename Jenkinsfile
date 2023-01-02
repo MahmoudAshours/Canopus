@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'flutter:latest'
-            args '-v /path/to/flutter/sdk:/flutter'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
@@ -16,10 +11,9 @@ pipeline {
                 sh 'flutter test'
             }
         }
-        stage('Release') {
+        stage('Deploy') {
             steps {
-                sh 'flutter build apk --release'
-                sh 'flutter build ios --release'
+                sh 'flutter build apk'
             }
         }
     }
